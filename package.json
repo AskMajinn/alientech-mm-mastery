@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy:cpanel": "npm run build && bash build-for-cpanel.sh",
+    "build:prod": "astro build --site https://alientech.mm-mastery.com"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
