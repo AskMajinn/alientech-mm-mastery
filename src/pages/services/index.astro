@@ -1,0 +1,88 @@
+---
+import Layout from '../../layouts/layout.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import { services } from '../../data/services';
+
+const title = "Our Services - MM Mastery";
+const description = "Professional graphic design and web development services. From logos to lead funnels, we help your business stand out and convert.";
+
+// Group services by category
+const graphicDesignServices = services.filter(s => s.category === 'graphic-design');
+const websiteServices = services.filter(s => s.category === 'websites-funnels');
+---
+
+<Layout title={title} description={description}>
+  <!-- Header -->
+  <header>
+    <nav class="container">
+      <a href="/" class="logo">MM Mastery</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Our Services</h1>
+      <p>Professional graphic design and web development solutions to help your business succeed online and offline.</p>
+    </div>
+  </section>
+
+  <!-- Graphic Design Services -->
+  <section class="section--light">
+    <div class="container">
+      <h2 class="section-title">Graphic Design Services</h2>
+      <p class="section-subtitle">Create a memorable brand identity with professional design that stands out</p>
+      
+      <div class="cards">
+        {graphicDesignServices.map(service => (
+          <div class="card">
+            <h3>{service.title}</h3>
+            <p>{service.short}</p>
+            <a href={`/services/${service.slug}`} class="btn btn--chem" style="margin-top: 1rem;">Learn More</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Website & Funnel Services -->
+  <section class="section--light">
+    <div class="container">
+      <h2 class="section-title">Websites & Lead Funnels</h2>
+      <p class="section-subtitle">Modern websites and conversion-focused funnels that turn visitors into customers</p>
+      
+      <div class="cards">
+        {websiteServices.map(service => (
+          <div class="card">
+            <h3>{service.title}</h3>
+            <p>{service.short}</p>
+            <a href={`/services/${service.slug}`} class="btn btn--chem" style="margin-top: 1rem;">Learn More</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section id="contact" class="section--light">
+    <div class="container">
+      <ContactCTA 
+        headline="Ready to Start Your Project?"
+        subtext="Let's discuss how we can help grow your business with professional design and development"
+      />
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 MM Mastery. All rights reserved.</p>
+      <p>Professional graphic design and web development services</p>
+    </div>
+  </footer>
+</Layout>

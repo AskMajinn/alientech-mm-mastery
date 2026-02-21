@@ -1,0 +1,66 @@
+---
+import { EMAIL, PHONE_DISPLAY, mailtoHref, telHref } from '../config/contact';
+
+interface Props {
+  headline?: string;
+  subtext?: string;
+}
+
+const { 
+  headline = "Ready to Get Started?",
+  subtext = "Let's discuss your project and create a custom solution that drives results"
+} = Astro.props;
+
+const subject = "MM Mastery Project Inquiry";
+const bodyTemplate = `Hi there,
+
+I'm interested in learning more about your services. Here are my details:
+
+Name: [Your Name]
+Company: [Your Company]
+Service Needed: [e.g., Logo Design, Website Build, Lead Funnel]
+Phone: [Your Phone Number]
+Budget/Timeline: [Your Budget Range and Timeline]
+Details: [Tell us more about your project and goals]
+
+I look forward to hearing from you!
+
+Best regards,
+[Your Name]`;
+
+const mailto = mailtoHref(subject, bodyTemplate);
+const tel = telHref();
+---
+
+<div class="contact-cta">
+  <h2 class="section-title heading-readable">{headline}</h2>
+  <p class="section-subtitle text-readable">{subtext}</p>
+  
+  <div class="contact-buttons">
+    <a href={mailto} class="btn btn--chem">
+      📧 Email Me for a Quote
+    </a>
+    <a href={tel} class="btn btn--call">
+      <span class="call-icon">☎</span> Call Me: {PHONE_DISPLAY}
+    </a>
+  </div>
+  
+  <div style="text-align: center; margin-top: 2rem;">
+    <p class="text-readable" style="opacity: 0.8;">Free consultation • No obligation • Quick response</p>
+  </div>
+</div>
+
+<style>
+.contact-cta {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.call-icon {
+  color: white;
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+</style>

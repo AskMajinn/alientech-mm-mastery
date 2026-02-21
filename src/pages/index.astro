@@ -1,17 +1,152 @@
 ---
+import Layout from '../layouts/layout.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { services } from '../data/services';
 
+const title = "Alien Tech - Futuristic Design Templates by MM Mastery";
+const description = "Discover otherworldly design templates and cutting-edge web solutions. Alien Tech offers brutalist-inspired designs and futuristic templates for the next generation of digital experiences.";
+
+// Featured services for homepage
+const featuredServices = [
+  services.find(s => s.slug === 'logo-branding'),
+  services.find(s => s.slug === 'astro-website-build'),
+  services.find(s => s.slug === 'flyers-social'),
+  services.find(s => s.slug === 'simple-lead-funnel')
+].filter((service): service is NonNullable<typeof service> => service !== undefined);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title={title} description={description}>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <h1>Future-Ready Design & Development</h1>
+          <p>Transform your business with cutting-edge graphic design and web development. From memorable logos to high-converting websites, we create solutions that drive real results in the digital age.</p>
+          <a href="#contact" class="btn btn--chem">Get Your Free Quote</a>
+        </div>
+        <div class="glass-panel">
+          <div style="display: grid; gap: 1.5rem;">
+            <div class="stat">
+              <div class="stat-icon">⚡</div>
+              <h3>Fast Turnaround</h3>
+              <p>Quick delivery without compromising quality</p>
+            </div>
+            <div class="stat">
+              <div class="stat-icon">🎯</div>
+              <h3>Built for Leads</h3>
+              <p>Conversion-focused design principles</p>
+            </div>
+            <div class="stat">
+              <div class="stat-icon">🚀</div>
+              <h3>Design + Web</h3>
+              <p>Complete digital solutions under one roof</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Services -->
+  <section id="services">
+    <div class="container">
+      <h2 class="section-title">Featured Services</h2>
+      <p class="section-subtitle">Our most popular solutions for growing businesses</p>
+      
+      <div class="cards">
+        {featuredServices.map(service => (
+          <div class="card">
+            <h3>{service.title}</h3>
+            <p>{service.short}</p>
+            <a href={`/services/${service.slug}`} class="btn btn--chem" style="margin-top: 1rem;">Learn More</a>
+          </div>
+        ))}
+      </div>
+      
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="/services" class="btn btn--ghost">View All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section id="process" style="background: rgba(0, 255, 136, 0.02);">
+    <div class="container">
+      <h2 class="section-title">Our Process</h2>
+      <p class="section-subtitle">A proven methodology that delivers consistent results</p>
+      
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-number">1</div>
+          <h3>Discovery & Analysis</h3>
+          <p>We start by understanding your business, goals, and current digital presence. Comprehensive audit and competitive analysis.</p>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <h3>Strategy Development</h3>
+          <p>Custom strategy tailored to your specific needs and objectives. Clear roadmap with measurable milestones.</p>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <h3>Implementation</h3>
+          <p>Execute the strategy with precision. Design creation, development, and optimization across all channels.</p>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">4</div>
+          <h3>Monitor & Optimize</h3>
+          <p>Continuous monitoring and optimization for maximum performance. Regular reporting and strategy refinement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio">
+    <div class="container">
+      <h2 class="section-title">Success Stories</h2>
+      <p class="section-subtitle">Real results for real businesses</p>
+      
+      <div class="cards">
+        <div class="card">
+          <h3>E-commerce Brand</h3>
+          <p><strong>Challenge:</strong> Outdated brand identity hurting conversion rates</p>
+          <p><strong>Solution:</strong> Complete rebrand + responsive website + lead capture system</p>
+          <p><strong>Results:</strong> 300% increase in online sales, 150% boost in brand recognition</p>
+        </div>
+        
+        <div class="card">
+          <h3>Local Service Business</h3>
+          <p><strong>Challenge:</strong> Limited online visibility in competitive market</p>
+          <p><strong>Solution:</strong> Professional branding + modern website + social media graphics</p>
+          <p><strong>Results:</strong> #1 in local searches, 200% increase in qualified leads</p>
+        </div>
+        
+        <div class="card">
+          <h3>B2B Software Company</h3>
+          <p><strong>Challenge:</strong> Complex product needed clear communication</p>
+          <p><strong>Solution:</strong> Brand redesign + landing pages + lead funnels</p>
+          <p><strong>Results:</strong> 50% reduction in customer acquisition cost, 180% increase in conversions</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section--light">
+    <div class="container">
+      <ContactCTA />
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 MM Mastery. All rights reserved.</p>
+      <p>Professional graphic design and web development services</p>
+    </div>
+  </footer>
+</Layout>

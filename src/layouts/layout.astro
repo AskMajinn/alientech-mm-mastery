@@ -1,0 +1,132 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import '../styles/theme.css';
+
+const { title = "Alien Tech by MM Mastery", description = "Futuristic design templates and otherworldly digital experiences" } = Astro.props;
+
+// Build canonical URL if available
+const canonicalURL = Astro.url ? new URL(Astro.url.pathname, Astro.site || Astro.url.origin).href : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonicalURL && <link rel="canonical" href={canonicalURL} />}
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/mm-mastery-logo.png" />
+    
+    <!-- OpenGraph tags -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    {canonicalURL && <meta property="og:url" content={canonicalURL} />}
+    
+    <ViewTransitions />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+      <div class="container">
+        <div class="nav-content">
+          <a href="/" class="logo">
+            <img src="/images/mm-mastery-logo.png" alt="MM Mastery" class="logo-img" />
+          </a>
+          
+          <!-- Mobile Menu Button -->
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+          
+          <!-- Navigation Links -->
+          <ul class="nav-links" id="navLinks">
+            <li><a href="#services" data-section="services">Services</a></li>
+            <li><a href="#process" data-section="process">Process</a></li>
+            <li><a href="#portfolio" data-section="portfolio">Portfolio</a></li>
+            <li><a href="#contact" data-section="contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <slot />
+
+    <!-- Scrollspy Script -->
+    <script>
+      // Scrollspy functionality
+      const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -80% 0px',
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const navLink = document.querySelector(`[data-section="${entry.target.id}"]`);
+          if (entry.isIntersecting) {
+            // Remove active from all links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+              link.classList.remove('active');
+            });
+            // Add active to current link
+            if (navLink) {
+              navLink.classList.add('active');
+            }
+          }
+        });
+      }, observerOptions);
+
+      // Observe all sections
+      document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('section[id]');
+        sections.forEach(section => observer.observe(section));
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (mobileMenuBtn && navLinks) {
+          mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-links--open');
+            mobileMenuBtn.classList.toggle('mobile-menu-btn--open');
+          });
+
+          // Close mobile menu when clicking on a link
+          navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+              navLinks.classList.remove('nav-links--open');
+              mobileMenuBtn.classList.remove('mobile-menu-btn--open');
+            });
+          });
+
+          // Close mobile menu when clicking outside
+          document.addEventListener('click', (e) => {
+            const target = e.target as Node;
+            if (target && !mobileMenuBtn.contains(target) && !navLinks.contains(target)) {
+              navLinks.classList.remove('nav-links--open');
+              mobileMenuBtn.classList.remove('mobile-menu-btn--open');
+            }
+          });
+        }
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        if (navbar) {
+          window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+              navbar.classList.add('scrolled');
+            } else {
+              navbar.classList.remove('scrolled');
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

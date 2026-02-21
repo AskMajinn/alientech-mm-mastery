@@ -1,0 +1,193 @@
+---
+import Layout from '../../layouts/layout.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import { services, type Service } from '../../data/services';
+
+export async function getStaticPaths() {
+  return services.map(service => ({
+    params: { slug: service.slug },
+    props: { service }
+  }));
+}
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+
+const title = `${service.title} - MM Mastery Services`;
+const description = service.short;
+---
+
+<Layout title={title} description={description}>
+  <!-- Header -->
+  <header>
+    <nav class="container">
+      <a href="/" class="logo">MM Mastery</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>{service.title}</h1>
+      <p>{service.short}</p>
+    </div>
+  </section>
+
+  <!-- Service Details -->
+  <section class="section--light">
+    <div class="container">
+      <div style="max-width: 800px; margin: 0 auto;">
+        
+        <!-- What's Included -->
+        <div class="service-section">
+          <h2 class="section-title" style="text-align: left; font-size: 2rem;">What's Included</h2>
+          <ul class="service-bullets">
+            {service.bullets.map(bullet => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Expected Outcomes -->
+        <div class="service-section">
+          <h2 class="section-title" style="text-align: left; font-size: 2rem;">Expected Outcomes</h2>
+          <ul class="service-bullets outcomes">
+            {service.outcomes.map(outcome => (
+              <li>{outcome}</li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="service-section">
+          <h2 class="section-title" style="text-align: left; font-size: 2rem;">Frequently Asked Questions</h2>
+          <div class="faq-list">
+            {service.faqs.map((faq, index) => (
+              <details class="faq-item">
+                <summary class="faq-question">{faq.question}</summary>
+                <div class="faq-answer">
+                  <p>{faq.answer}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="section--light">
+    <div class="container">
+      <ContactCTA 
+        headline={`Ready to Get Started with ${service.title}?`}
+        subtext="Let's discuss your project requirements and create a solution that exceeds your expectations"
+      />
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 MM Mastery. All rights reserved.</p>
+      <p>Professional graphic design and web development services</p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+.service-section {
+  margin: 3rem 0;
+}
+
+.service-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.service-bullets li {
+  position: relative;
+  padding: 0.75rem 0 0.75rem 2rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.service-bullets li:last-child {
+  border-bottom: none;
+}
+
+.service-bullets li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0.75rem;
+  color: #2563eb;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.service-bullets.outcomes li::before {
+  content: "🎯";
+}
+
+.faq-list {
+  margin: 2rem 0;
+}
+
+.faq-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.faq-question {
+  background: #f8fafc;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border: none;
+  outline: none;
+}
+
+.faq-question:hover {
+  background: #e5f3ff;
+}
+
+.faq-answer {
+  padding: 1rem 1.5rem;
+  background: white;
+}
+
+.faq-answer p {
+  margin: 0;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+/* Custom marker for details */
+.faq-question::marker {
+  content: '';
+}
+
+.faq-question::after {
+  content: '+';
+  float: right;
+  font-size: 1.2rem;
+  color: #2563eb;
+  transition: transform 0.2s;
+}
+
+details[open] .faq-question::after {
+  transform: rotate(45deg);
+}
+</style>
