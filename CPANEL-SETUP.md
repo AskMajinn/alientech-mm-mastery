@@ -11,7 +11,7 @@
 ### 2. Enable Git in cPanel
 - Go to "Git Version Control" in cPanel
 - Click "Create" 
-- Repository URL: https://github.com/YOUR_USERNAME/alientech-mm-mastery.git
+- Repository URL: https://github.com/AskMajinn/alientech-mm-mastery.git
 - Repository Path: /public_html/alientech/
 - Branch: main
 

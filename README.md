@@ -1,10 +1,28 @@
-# Astro Starter Kit: Minimal
+# Alien Tech - MM Mastery
 
-```sh
-npm create astro@latest -- --template minimal
+🛸 **Futuristic design templates and otherworldly digital experiences**
+
+This is the subdomain site for `alientech.mm-mastery.com` - showcasing cutting-edge design templates with alien brutalist aesthetics.
+
+## Features
+- Futuristic neon green theme
+- Mobile hamburger navigation  
+- Contact forms with mailto/tel integration
+- Responsive design
+- Auto-deployment via GitHub → cPanel
+
+## Development
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Deployment
+- **GitHub Repository**: https://github.com/AskMajinn/alientech-mm-mastery
+- **Live Site**: https://alientech.mm-mastery.com (coming soon)
+- **Auto-deploy**: Push to main branch
+
+Built with Astro ⚡️
 
 ## 🚀 Project Structure
 
