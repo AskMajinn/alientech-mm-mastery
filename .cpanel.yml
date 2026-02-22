@@ -2,4 +2,6 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/wdjyq4olhx2/public_html/alientech
+    - npm install
+    - npm run build
     - /bin/cp -R dist/* $DEPLOYPATH
